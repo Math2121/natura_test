@@ -1,11 +1,16 @@
 import Image from "next/image";
-import Header from "./components/Nav";
-
+import HeroImage from '../public/hero.png'
+import Card from "./components/Card";
 export default function Home() {
   return (
-    <main className="container mx-auto">
+    <main className="w-full">
+      <Image src={HeroImage} alt="Se joga no arraia" className="w-full " />
 
-      
+      <section className="container mx-auto py-12">
+        <h2 className="text-3xl font-bold text-center mb-10">Descubra as fragrâncias que combinam com você</h2>
+
+        <Card />
+      </section>
 
     </main>
   );
