@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import Nav from "./components/Nav";
+import Notify from "./components/Notify";
 
 
 
@@ -11,7 +12,8 @@ export default function RootLayout({
   return (
     <html lang="en">
 
-      <body className="container mx-auto">
+      <body>
+        <Notify />
         <Nav />
         {children}
       </body>
