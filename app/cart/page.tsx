@@ -10,7 +10,7 @@ import { createCart } from '../data/createCart';
 function Page() {
 
 
-    const { cartItems } = useShoppingCart()
+    const { cartItems,removeAllItems } = useShoppingCart()
 
     const { data: data } = useQuery({
         queryKey: "products",
@@ -42,6 +42,7 @@ function Page() {
                 }))
             }
         )
+        removeAllItems()
     }
     return (
         <div className="container mx-auto py-12">

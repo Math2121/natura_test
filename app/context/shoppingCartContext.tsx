@@ -12,6 +12,7 @@ type ShoppingCartContext = {
   cartQuantity: number
   cartItems: CartItem[]
   addCartItem: (id: number) => void
+  removeAllItems: () => void
 
 };
 
@@ -92,6 +93,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     setCartItems(currItems => [...currItems, { id, quantity: 1 }])
   }
 
+  const removeAllItems = () => {
+    setCartItems([])
+  }
+
 
   return (
     <ShoppingCartContext.Provider
@@ -102,7 +107,8 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         removeItem,
         cartQuantity,
         cartItems,
-        addCartItem
+        addCartItem,
+        removeAllItems
       }}>
       {children}
 
