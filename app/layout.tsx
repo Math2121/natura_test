@@ -1,8 +1,10 @@
+"use client"
+import { QueryClientProvider } from "react-query";
 import "../styles/globals.css";
 import Nav from "./components/Nav";
 import Notify from "./components/Notify";
-
-
+import { ShoppingCartProvider } from "./context/shoppingCartContext";
+import  { queryClient } from "./library/react-query/provider";
 
 export default function RootLayout({
   children,
@@ -13,9 +15,14 @@ export default function RootLayout({
     <html lang="en">
 
       <body>
-        <Notify />
-        <Nav />
-        {children}
+
+        <QueryClientProvider client={queryClient}>
+          <ShoppingCartProvider>
+            <Notify />
+            <Nav />
+            {children}
+          </ShoppingCartProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
