@@ -1,7 +1,7 @@
 "use client"
 import { ReactNode, createContext, useContext } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-
+import { useRouter } from 'next/navigation';
 
 
 type ShoppingCartContext = {
@@ -36,6 +36,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     []
   );
 
+  const router = useRouter()
   const getItemQuantity = (id: number) => {
     const item = cartItems && cartItems.find((item) => item.id === id);
     return item?.quantity ?? 0;
@@ -95,6 +96,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
 
   const removeAllItems = () => {
     setCartItems([])
+    router.push('/')
   }
 
 
