@@ -12,12 +12,16 @@ function CartLink() {
             <div className="relative py-2">
                 <a href="/cart">
                     <div className="t-0 absolute left-3">
-                    <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
-                        {cartQuantity == 0 || cartQuantity == undefined ? "" : cartQuantity ? cartQuantity : ''}
-                        </p>
+
+                        {cartQuantity == 0 || cartQuantity == undefined ? "" : (
+                            <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
+                                {cartQuantity}
+                            </p>
+                        )}
+
                     </div>
-               
-                     
+
+
                     <Image src={Cart} alt='cart' className="w-5 h-5" />
                 </a>
             </div>
