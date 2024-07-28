@@ -6,11 +6,13 @@ import CartItem from "../components/CartItem";
 import { useQuery } from "react-query";
 import { getData } from "../data/getProducts";
 import { createCart } from '../data/createCart';
+import { useRouter } from 'next/navigation';
+
 
 function Page() {
+    const router = useRouter()
 
-
-    const { cartItems,removeAllItems } = useShoppingCart()
+    const { cartItems, removeAllItems } = useShoppingCart()
 
     const { data: data } = useQuery({
         queryKey: "products",
@@ -43,6 +45,7 @@ function Page() {
             }
         )
         removeAllItems()
+        router.push('/')
     }
     return (
         <div className="container mx-auto py-12">
