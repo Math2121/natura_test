@@ -6,11 +6,10 @@ import CartItem from "../components/CartItem";
 import { useQuery } from "react-query";
 import { getData } from "../data/getProducts";
 import { createCart } from '../data/createCart';
-import { useRouter } from 'next/navigation';
 
 
 function Page() {
-    const router = useRouter()
+
 
     const { cartItems, removeAllItems } = useShoppingCart()
 
@@ -50,8 +49,8 @@ function Page() {
         } catch (error) {
             console.log(error)
         }finally{
-            router.push('/')
             removeAllItems()
+            
         }
 
     }

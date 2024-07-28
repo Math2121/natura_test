@@ -7,14 +7,12 @@ import { getData } from "./data/getProducts";
 import { useState } from "react";
 
 export default function Home() {
-  const [page, setPage] = useState(1);
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["products"],
     ({ pageParam = 1 }) => getData(pageParam),
     {
       getNextPageParam: (lastPage) =>
-        lastPage ? undefined : page + 1,
-      staleTime: 1000 * 60 * 5, // 5 minutes
+        lastPage.page + 1
     }
 
   )
@@ -28,15 +26,21 @@ export default function Home() {
 
         <div>
 
-          {isLoading ? <></> : (
-            <Card
-              product={data?.pages[page - 1].data}
-              fetchData={fetchNextPage}
-              hasNextpage={hasNextPage}
-              isFetchingNextPage={isFetchingNextPage}
+          {isLoading ? <></> :
+            (
+              data?.pages && data?.pages.map((page, i) => (
+                <Card
+                  product={page.data}
+                  fetchData={fetchNextPage}
+                  hasNextpage={hasNextPage}
+                  isFetchingNextPage={isFetchingNextPage}
+                  key={i}
 
-            />
-          )}
+                />
+              )
+              ))
+
+          }
 
         </div>
 
