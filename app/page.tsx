@@ -1,22 +1,23 @@
-
+"use client"
 import Image from "next/image";
 import HeroImage from '../public/hero.png'
 import Card from "./components/Card";
+import { useInfiniteQuery, useQuery } from "react-query";
+import { getData } from "./data/getProducts";
+import { useState } from "react";
 
-export default async function Home() {
-  async function getData() {
-    const res = await fetch('https://natura-test-server.onrender.com/products', {
-      cache: "no-cache"
-    })
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
+export default function Home() {
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery(
+    ["products"],
+    ({ pageParam = 1 }) => getData(pageParam),
+    {
+      getNextPageParam: (lastPage) =>
+        lastPage ? undefined : page + 1,
+      staleTime: 1000 * 60 * 5, // 5 minutes
     }
-    return res.json()
-  }
 
-
-  const data = await getData()
-
+  )
 
   return (
     <main className="w-full">
@@ -27,8 +28,16 @@ export default async function Home() {
 
         <div>
 
-          <Card
-            product={data.data} />
+          {isLoading ? <></> : (
+            <Card
+              product={data?.pages[page - 1].data}
+              fetchData={fetchNextPage}
+              hasNextpage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+
+            />
+          )}
+
         </div>
 
       </section>
