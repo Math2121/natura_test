@@ -36,16 +36,24 @@ function Page() {
     }).format(totalItems);
 
     const handleCart = async () => {
-        await createCart(
-            {
-                items: cartItems.map((item) => ({
-                    productId: item.id,
-                    quantity: item.quantity
-                }))
-            }
-        )
-        removeAllItems()
-        router.push('/')
+        try {
+            await createCart(
+                {
+                    items: cartItems.map((item) => ({
+                        productId: item.id,
+                        quantity: item.quantity
+                    }))
+                }
+            )
+          
+         
+        } catch (error) {
+            console.log(error)
+        }finally{
+            router.push('/')
+            removeAllItems()
+        }
+
     }
     return (
         <div className="container mx-auto py-12">
@@ -93,7 +101,8 @@ function Page() {
                                         <button className="bg-black text-white font-bold py-2 px-4 rounded-full    ">Aplicar</button>
                                     </div>
                                     <div className="flex w-full">
-                                        <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full  w-full  "
+                                        <button className={`bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full  w-full  ${cartItems.length >0 ?'' : 'bg-gray-700'} `}
+                                        disabled={cartItems.length === 0}
                                             onClick={handleCart}
                                         >Finalizar compra</button>
 
